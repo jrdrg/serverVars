@@ -1,0 +1,27 @@
+{
+  "name": "server-vars",
+  "version": "1.0.1",
+  "description": "Share variables between the server and the client.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive --ui bdd test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1stdibs/serverVars.git"
+  },
+  "author": "Tim Whidden",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/1stdibs/serverVars/issues"
+  },
+  "homepage": "https://github.com/1stdibs/serverVars",
+  "dependencies": {
+    "underscore": "~1.6.0"
+  },
+  "devDependencies": {
+    "express": "^4.12.3",
+    "mocha": "^2.2.4",
+    "supertest": "^0.15.0"
+  }
+}
