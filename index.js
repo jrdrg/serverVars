@@ -8,7 +8,7 @@
 "use strict";
 
 var _ = require('underscore');
-var findNamespaceValue = require('./lib/findNamespaceValue');
+var findNamespaceValue = require('find-namespace-value');
 
 var serverVarsFactory = function () {
     return Object.create({
