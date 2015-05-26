@@ -1,6 +1,6 @@
 {
   "name": "server-vars",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Share variables between the server and the client.",
   "main": "index.js",
   "scripts": {
