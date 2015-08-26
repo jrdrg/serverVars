@@ -16,17 +16,13 @@ describe('serverVars works', function () {
 
     describe('...on the server', function () {
         var serverVars;
-        var test1 = { bar: 2 };
-        var test2 = { foo3: 3, foo4: { foo5: 5 } };
+        var test1;
+        var test2;
 
         beforeEach(function () {
+            test1 = { bar: 2 };
+            test2 = { foo3: 3, foo4: { foo5: 5 } };
             serverVars = require('../');
-        });
-
-        afterEach(function() {
-            // reset the module
-            serverVars = null;
-            test1.bar = 2;
         });
 
         it('sets & gets server vars', function () {
@@ -126,4 +122,40 @@ describe('serverVars works', function () {
 
     });
 
+    describe('push and pop', function () {
+        var serverVars;
+        beforeEach(function () {
+            serverVars = require('../');
+            serverVars.push({
+                thomas: {
+                    hallock: {
+                        value: 'foo'
+                    }
+                }
+            });
+            serverVars.push({
+                thomas: {
+                    ross: {
+                        hallock: {
+                            value: 'bar'
+                        }
+                    }
+                }
+            });
+        });
+        afterEach(function () {
+            serverVars.pop();
+            serverVars.pop();
+        });
+        it('should layer values on with posh', function () {
+            assert.ok(serverVars.get('thomas.hallock.value') === 'foo');
+            assert.ok(serverVars.get('thomas.ross.hallock.value') === 'bar');
+        });
+        it('should pop values layer by layer', function () {
+            var popped = serverVars.pop();
+            assert.ok(serverVars.get('thomas.hallock.value') === 'foo');
+            assert.ok(serverVars.get('thomas.ross.hallock.value') === undefined);
+            serverVars.push(popped);
+        });
+    });
 });
