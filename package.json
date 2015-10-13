@@ -1,6 +1,6 @@
 {
   "name": "server-vars",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Share variables between the server and the client.",
   "main": "client.js",
   "scripts": {
@@ -18,7 +18,9 @@
   "homepage": "https://github.com/1stdibs/serverVars",
   "dependencies": {
     "find-namespace-value": "~1.0.1",
-    "underscore": "~1.6.0"
+    "lodash.assign": "^3.2.0",
+    "lodash.clone": "^3.0.3",
+    "lodash.result": "^3.1.2"
   },
   "devDependencies": {
     "express": "^4.12.3",
