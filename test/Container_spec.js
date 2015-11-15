@@ -12,11 +12,14 @@ describe('Container', function () {
             thomas: 'foo',
             test2: {
                 test3: 3
-            }
+            },
+            test4: null
         });
     });
     it('has a `get` method that retrieves keys', function () {
         assert.equal(serverVars.get('test2.test3'), 3);
+        assert.equal(serverVars.get('test4.test5'), null);
+        assert.equal(serverVars.get('test6.test7'), undefined);
     });
     describe('buildLayer', function () {
         var origServerVarsGet;
