@@ -7,7 +7,6 @@
  */
 "use strict";
 
-var _ = require('underscore');
 var findNamespaceValue = require('find-namespace-value');
 
 var serverVarsFactory = function () {
@@ -15,14 +14,17 @@ var serverVarsFactory = function () {
         store: {},
         add: function (key, val) {
             if (typeof key === 'object') {
-                _.extend(this.store, key);
+                // copy all properties into the store
+                Object.assign(this.store, key);
             } else {
-                this.store[key] = typeof val === 'object' ? _.clone(val) : val;
+                // set on the store (copy if an object)
+                this.store[key] = typeof val === 'object' ? Object.assign({}, val) : val;
             }
         },
         get: function(key) {
             if (!key) {
-                return _.clone(this.store);
+                // return a copy of the entire store
+                return Object.create({}, this.store);
             }
             return findNamespaceValue(key, this.store);
         },
@@ -45,7 +47,7 @@ var serverVars = serverVarsFactory();
 
 serverVars.middleware = function (req, res, next) {
     res.serverVars = res.locals.serverVars = serverVarsFactory();
-    res.serverVars.add(_.clone(serverVars.store)); // get a copy of app-wide serverVars
+    res.serverVars.add(Object.assign({}, serverVars.store)); // get a copy of app-wide serverVars
     next();
 };
 

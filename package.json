@@ -17,8 +17,7 @@
   },
   "homepage": "https://github.com/1stdibs/serverVars",
   "dependencies": {
-    "find-namespace-value": "~1.0.1",
-    "underscore": "~1.6.0"
+    "find-namespace-value": "~1.0.1"
   },
   "devDependencies": {
     "express": "^4.12.3",

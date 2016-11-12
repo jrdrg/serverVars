@@ -113,7 +113,7 @@ describe('serverVars works', function () {
         it('errors if attempt to set', function () {
             assert.throws(function () {
                 serverVars.add('foo', 'bar');
-            }, /has no method 'add'/);
+            }, Error);
         });
 
         it('allows normal accessors', function () {
