@@ -1,19 +1,26 @@
 'use strict';
-// `lodash.assign` is similar to `_.extend`
-var extend = require('lodash.assign');
-var clone = require('lodash.clone');
-var result = require('lodash.result');
+
 var findNamespaceValue = require('find-namespace-value');
 var Container = module.exports = function (store) {
     this.store = store || {};
 };
 var mockDataNotFound = '__mock_data_not_found__';
+
+function result(obj, prop) {
+    if (!obj) {
+        return
+    } else if (typeof obj[prop] === 'function') {
+        return obj[prop]();
+    }
+    return obj[prop];
+}
+
 Container.prototype = {
     get: function(key) {
         if (key) {
             return findNamespaceValue(key, this.store);
         }
-        return clone(this.store);
+        return Object.assign({}, this.store);
     },
 
     // buildLayer returns a function suitable for passing to spyOn(fooo, 'bar').and.callFake that defers initially to a fake layer of serverVars on top of the existing serverVars
@@ -26,7 +33,7 @@ Container.prototype = {
     buildLayer: function (dataLayer, options) {
         var thisGet = this.get;
         var passthrough;
-        options = extend({
+        options = Object.assign({
             passthrough: false
         }, options);
         return function (key) {
@@ -51,7 +58,7 @@ Container.prototype = {
     // sets this.get_spyTarget to new fake getter with buildLayer that passes through to the prior version of this.get._spyTarget
     // This method is useful for building up layers of fake data for serverVars.get in jasmine specs
     jasmineFakeGet: function (dataLayer, options) {
-        options = extend({
+        options = Object.assign({
             passthrough: this.get._spyTarget || result(options, 'passthrough')
         }, options);
         var thisSV = this;

@@ -1,20 +1,18 @@
 'use strict';
-var clone = require('lodash.clone');
-// `lodash.assign` is similar to `_.extend`
-var extend = require('lodash.assign');
+
 var Container = require('./Container');
 var Mutable = module.exports = function () {
     return Container.apply(this, arguments);
 };
-Mutable.prototype = extend({}, Container.prototype, {
+Mutable.prototype = Object.assign({}, Container.prototype, {
     reset: function () {
         this.store = {};
     },
     add: function (key, val) {
         if (typeof key === 'object') {
-            extend(this.store, key);
+            Object.assign(this.store, key);
         } else {
-            this.store[key] = typeof val === 'object' ? clone(val) : val;
+            this.store[key] = typeof val === 'object' ? Object.assign({}, val) : val;
         }
         return this;
     }
