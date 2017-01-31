@@ -1,6 +1,6 @@
 'use strict';
 
-var findNamespaceValue = require('find-namespace-value');
+var get = require('lodash.get');
 var Container = module.exports = function (store) {
     this.store = store || {};
 };
@@ -18,7 +18,7 @@ function result(obj, prop) {
 Container.prototype = {
     get: function(key) {
         if (key) {
-            return findNamespaceValue(key, this.store);
+            return get(this.store, key);
         }
         return Object.assign({}, this.store);
     },
@@ -38,7 +38,7 @@ Container.prototype = {
         }, options);
         return function (key) {
             var mockValue;
-            mockValue = findNamespaceValue(key, dataLayer, mockDataNotFound);
+            mockValue = get(dataLayer, key, mockDataNotFound);
             if (mockDataNotFound !== mockValue) {
                 return mockValue;
             }
