@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/1stdibs/serverVars",
   "dependencies": {
-    "find-namespace-value": "~1.0.1"
+    "lodash.get": "^4.0.0"
   },
   "devDependencies": {
     "express": "^4.12.3",
