@@ -1,13 +1,6 @@
-/* global require:false, module:true */
-/**
- * Created by timwhidden
- * Date: 5/7/15
- * Time: 7:12:06PM
- * Copyright 1stdibs.com, Inc. 2015. All Rights Reserved.
- */
 "use strict";
 
-var findNamespaceValue = require('find-namespace-value');
+var get = require('lodash.get');
 
 var serverVarsFactory = function () {
     return Object.create({
@@ -26,7 +19,7 @@ var serverVarsFactory = function () {
                 // return a copy of the entire store
                 return Object.create({}, this.store);
             }
-            return findNamespaceValue(key, this.store);
+            return get(this.store, key);
         },
         inject: function () {
             return '<script type="text/javascript">' +
@@ -55,7 +48,7 @@ serverVars.middleware = function (req, res, next) {
 if (typeof window !== 'undefined' && window.__SERVER_VARS__) {
     serverVars = window.__SERVER_VARS__;
     serverVars.get = function (key) {
-        return findNamespaceValue(key, serverVars);
+        return get(serverVars, key);
     };
 }
 
