@@ -12,7 +12,7 @@ Mutable.prototype = Object.assign({}, Container.prototype, {
         if (typeof key === 'object') {
             Object.assign(this.store, key);
         } else {
-            this.store[key] = typeof val === 'object' ? Object.assign({}, val) : val;
+            this.store[key] = (!Array.isArray(val) && typeof val === 'object') ? Object.assign({}, val) : val;
         }
         return this;
     }
