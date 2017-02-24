@@ -11,7 +11,7 @@ var serverVarsFactory = function () {
                 Object.assign(this.store, key);
             } else {
                 // set on the store (copy if an object)
-                this.store[key] = typeof val === 'object' ? Object.assign({}, val) : val;
+                this.store[key] = (!Array.isArray(val) && typeof val === 'object') ? Object.assign({}, val) : val;
             }
         },
         get: function(key) {
